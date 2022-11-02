@@ -9,6 +9,7 @@ import org.hibernate.cfg.Environment;
 
 
 import javax.persistence.EntityManagerFactory;
+import java.beans.BeanProperty;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -23,6 +24,17 @@ public class Util {
     private static final String PASSWORD = "root";
 
 
+    private static Util util;
+    private Util() {
+    }
+    public static Util getUtil() {
+        if (util == null) {
+            util = new Util();
+        }
+        return util;
+    }
+
+
 
     public static Connection getConnection() {
 
@@ -32,7 +44,7 @@ public class Util {
             throw new RuntimeException(e);
         }
     }
-    public static SessionFactory getSessionConnection() {
+    public  SessionFactory getSessionConnection() {
 
         SessionFactory sessionFactory = new Configuration().
               addAnnotatedClass(User.class).
